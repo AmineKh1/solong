@@ -6,17 +6,16 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 01:04:21 by akhouya           #+#    #+#             */
-/*   Updated: 2022/04/09 02:06:23 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/04/09 03:09:29 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solong.h"
 #include<string.h>
 
-void	check_ext_map(int argc, char **argv)
+void	check_ext_map(int argc, char **argv, t_solong *attribut)
 {
 	char **str;
-
 	if (argc != 2)
 		exit(1);
 	str = ft_split(argv[1], '.');
@@ -24,6 +23,7 @@ void	check_ext_map(int argc, char **argv)
 	{
 		frealltab(str);
 		free(str);
+		system("leaks a.out");
 		exit(1);
 	}
 	frealltab(str);
@@ -60,10 +60,9 @@ int check_map_1(char *s, int lent)
 void	check_byte(t_solong *attribut, char *line, int i, int lent)
 {
 	int j;
-	int p;
 
 	j = -1;
-	while(++j < lent && p < 2)
+	while(++j < lent)
 	{
 		if((j == 0 || j == lent) && line[j] != '1')
 		{
@@ -112,18 +111,33 @@ void	parse_map(t_solong *attribut)
 		free(attribut->map);
 		exit(1);
 	}
+	i = -1;
+	//while(attribut->map[++i])
+	//	printf("%s", attribut->map[i]);
+	//printf("%s", attribut->map[i]);
+	//printf("%p", attribut->map);
+	frealltab(attribut->map);
+	free(attribut->map);
+	printf("%p\n", attribut->map);
+	system("leaks a.out");
+	exit(6);
 }
 int main(int argc, char **argv)
 {
 	t_solong attribut;
 	int i;
+	char *s;
 
 	i = 0;
+	attribut.map = NULL;
 	attribut.p_x = -1;
-	check_ext_map(argc, argv);
+	check_ext_map(argc, argv, &attribut);
 	attribut.fd = open (argv[1], O_RDWR);
-	while (get_next_line(attribut.fd) != 0)
+	while ((s = get_next_line(attribut.fd)) != 0)
+	{
 		i++;
+		free(s);
+	}
 	close(attribut.fd);
 	attribut.map = malloc((i + 1) * sizeof(char *));
 	attribut.fd = open (argv[1], O_RDWR);
@@ -132,5 +146,11 @@ int main(int argc, char **argv)
 	attribut.map[i] = NULL;
 	close(attribut.fd);
 	parse_map(&attribut);
-	exit(0);
+	int j;
+	i = -1;
+	//printf("dddd");
+	frealltab(attribut.map);
+	free(attribut.map);
+	system("leaks a.out");
+	//while(1);
 }

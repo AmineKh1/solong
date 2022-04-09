@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 22:57:39 by akhouya           #+#    #+#             */
-/*   Updated: 2022/04/08 01:15:48 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/04/09 03:06:40 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ void	frealltab(char **str)
 
 	l = 0;
 	while (str[l])
-	{
 		free(str[l++]);
-	}
 	return ;
 }
 
