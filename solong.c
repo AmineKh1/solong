@@ -6,12 +6,13 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 01:04:21 by akhouya           #+#    #+#             */
-/*   Updated: 2022/04/09 03:09:29 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/04/11 01:46:35 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solong.h"
 #include<string.h>
+#include "mlx.h"
 
 void	check_ext_map(int argc, char **argv, t_solong *attribut)
 {
@@ -23,7 +24,7 @@ void	check_ext_map(int argc, char **argv, t_solong *attribut)
 	{
 		frealltab(str);
 		free(str);
-		system("leaks a.out");
+		//system("leaks a.out");
 		exit(1);
 	}
 	frealltab(str);
@@ -87,6 +88,36 @@ void	check_byte(t_solong *attribut, char *line, int i, int lent)
 		}
 	}
 }
+void	check_byte_drawing(t_solong *attribut, char *line, int i, int lent)
+{
+	int j;
+
+	j = -1;
+	while(++j < lent)
+	{
+		if((j == 0 || j == lent) && line[j] != '1')
+		{
+			attribut->error = 1;
+			return ;
+		}
+		else if(line[j] == 'C')
+			attribut->count_coin++;
+		else if(line[j] == 'E')
+			attribut->exit = 1;
+		else if(line[j] == 'P' && attribut->p_x == -1)
+		{
+			attribut->p_y = j;
+			attribut->p_x = i;
+		}
+		else if (line[j] == '1' || line[j] == '0')
+			continue ;
+		else
+		{
+			attribut->error = 1;
+			return ;
+		}
+	}
+}
 void	parse_map(t_solong *attribut)
 {
 	int i;
@@ -95,32 +126,68 @@ void	parse_map(t_solong *attribut)
 	
 	i = 0;
 	j = 0;
-	lent = check_lent(attribut->map);
+	attribut->lent.y = check_lent(attribut->map);
 	if (lent == -1)
 		attribut->error = 1;
 	while(attribut->map[i])
 	{
-		if((!i || !attribut->map[i + 1]) && check_map_1(attribut->map[i], lent))
+		if((!i || !attribut->map[i + 1]) && check_map_1(attribut->map[i], attribut->lent.y))
 			attribut->error = 1;
-		check_byte(attribut, attribut->map[i], i, lent);
+		check_byte(attribut, attribut->map[i], i, attribut->lent.y);
 		i++;
 	}
+	attribut->lent.x = i;
+	attribut->lent.y++;
 	if(attribut->exit < 1 || attribut->error == 1)
 	{
 		frealltab(attribut->map);
 		free(attribut->map);
 		exit(1);
 	}
-	i = -1;
-	//while(attribut->map[++i])
+	//i = -1;
+	//while(attribut->map[++i] != NULL)
 	//	printf("%s", attribut->map[i]);
+	////i++;
 	//printf("%s", attribut->map[i]);
 	//printf("%p", attribut->map);
-	frealltab(attribut->map);
-	free(attribut->map);
-	printf("%p\n", attribut->map);
-	system("leaks a.out");
-	exit(6);
+	//frealltab(attribut->map);
+	//free(attribut->map);
+	//printf("%p\n", attribut->map);
+	//system("leaks a.out");
+	//exit(6);
+}
+void	parse_ma_drawing(t_solong *attribut)
+{
+	int i;
+	int j;
+	int lent;
+	
+	i = 0;
+	j = 0;
+	while(attribut->map[i])
+	{
+		check_byte(attribut, attribut->map[i], i, attribut->lent.y);
+		i++;
+	}
+	attribut->lent.x = i;
+	attribut->lent.y++;
+	if(attribut->exit < 1 || attribut->error == 1)
+	{
+		frealltab(attribut->map);
+		free(attribut->map);
+		exit(1);
+	}
+	//i = -1;
+	//while(attribut->map[++i] != NULL)
+	//	printf("%s", attribut->map[i]);
+	////i++;
+	//printf("%s", attribut->map[i]);
+	//printf("%p", attribut->map);
+	//frealltab(attribut->map);
+	//free(attribut->map);
+	//printf("%p\n", attribut->map);
+	//system("leaks a.out");
+	//exit(6);
 }
 int main(int argc, char **argv)
 {
@@ -145,12 +212,18 @@ int main(int argc, char **argv)
 	while ((attribut.map[i++] = get_next_line(attribut.fd)) != 0);
 	attribut.map[i] = NULL;
 	close(attribut.fd);
+	//printf("%d & %d", attribut.lent.x,attribut.lent.y);
 	parse_map(&attribut);
-	int j;
-	i = -1;
-	//printf("dddd");
-	frealltab(attribut.map);
-	free(attribut.map);
-	system("leaks a.out");
-	//while(1);
-}
+	//printf("%d &f %d", attribut.lent.x,attribut.lent.y);
+	attribut.mlx = mlx_init();
+	int img_w, img_h;
+	void *img = mlx_xpm_file_to_image(attribut.mlx, "wall.xpm", &img_w, &img_h);
+    void *win = mlx_new_window(mlx, 64 * attribut.lent.y, 64 * attribut.lent.x, "solong");
+	mlx_put_image_to_window(mlx, win, img, 0, 64);
+	mlx_put_image_to_window(mlx, win, img, 64, 0);
+	mlx_put_image_to_window(mlx, win, img, 128, 64);
+
+
+    mlx_loop(mlx);
+	//system("leaks a.out");
+} 
