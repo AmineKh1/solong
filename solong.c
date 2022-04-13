@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 01:04:21 by akhouya           #+#    #+#             */
-/*   Updated: 2022/04/11 01:46:35 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/04/13 02:54:38 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,27 +95,18 @@ void	check_byte_drawing(t_solong *attribut, char *line, int i, int lent)
 	j = -1;
 	while(++j < lent)
 	{
-		if((j == 0 || j == lent) && line[j] != '1')
+		if(line[j] == '1')
 		{
-			attribut->error = 1;
-			return ;
+			mlx_put_image_to_window(attribut->tmlx.mlx, attribut->tmlx.win, attribut->tmlx.imgWall, j * 64, i * 64);
 		}
-		else if(line[j] == 'C')
-			attribut->count_coin++;
-		else if(line[j] == 'E')
+		if(line[j] == 'C')
+			mlx_put_image_to_window(attribut->tmlx.mlx, attribut->tmlx.win, attribut->tmlx.imgNori, j * 64, i * 64);
+		if(line[j] == 'E')
 			attribut->exit = 1;
-		else if(line[j] == 'P' && attribut->p_x == -1)
-		{
-			attribut->p_y = j;
-			attribut->p_x = i;
-		}
-		else if (line[j] == '1' || line[j] == '0')
+		if(line[j] == 'P')
 			continue ;
-		else
-		{
-			attribut->error = 1;
-			return ;
-		}
+		if (line[j] == '0')
+			continue ;
 	}
 }
 void	parse_map(t_solong *attribut)
@@ -164,9 +155,14 @@ void	parse_ma_drawing(t_solong *attribut)
 	
 	i = 0;
 	j = 0;
+	//int img_w, img_h;
+	attribut->tmlx.imgWall = mlx_xpm_file_to_image(attribut->tmlx.mlx, "wall.xpm", &attribut->tmlx.img_w, &attribut->tmlx.img_h);
+	attribut->tmlx.imgNori = mlx_xpm_file_to_image(attribut->tmlx.mlx, "poudre.xpm", &attribut->tmlx.img_w, &attribut->tmlx.img_h);
+	//attribut->tmlx.imgPlayer = mlx_xpm_file_to_image(attribut->tmlx.mlx, "nonos.xpm", &attribut->tmlx.img_w, &attribut->tmlx.img_h);
+	attribut->tmlx.win = mlx_new_window(attribut->tmlx.mlx, 64 * attribut->lent.y, 64 * attribut->lent.x, "solong");
 	while(attribut->map[i])
 	{
-		check_byte(attribut, attribut->map[i], i, attribut->lent.y);
+		check_byte_drawing(attribut, attribut->map[i], i, attribut->lent.y);
 		i++;
 	}
 	attribut->lent.x = i;
@@ -215,15 +211,16 @@ int main(int argc, char **argv)
 	//printf("%d & %d", attribut.lent.x,attribut.lent.y);
 	parse_map(&attribut);
 	//printf("%d &f %d", attribut.lent.x,attribut.lent.y);
-	attribut.mlx = mlx_init();
-	int img_w, img_h;
-	void *img = mlx_xpm_file_to_image(attribut.mlx, "wall.xpm", &img_w, &img_h);
-    void *win = mlx_new_window(mlx, 64 * attribut.lent.y, 64 * attribut.lent.x, "solong");
-	mlx_put_image_to_window(mlx, win, img, 0, 64);
-	mlx_put_image_to_window(mlx, win, img, 64, 0);
-	mlx_put_image_to_window(mlx, win, img, 128, 64);
+	attribut.tmlx.mlx = mlx_init();
+	parse_ma_drawing(&attribut);
+	//int img_w, img_h;
+	//void *img = mlx_xpm_file_to_image(attribut.mlx, "wall.xpm", &img_w, &img_h);
+    //void *win = mlx_new_window(mlx, 64 * attribut.lent.y, 64 * attribut.lent.x, "solong");
+	//mlx_put_image_to_window(mlx, win, img, 0, 64);
+	//mlx_put_image_to_window(mlx, win, img, 64, 0);
+	//mlx_put_image_to_window(mlx, win, img, 128, 64);
 
 
-    mlx_loop(mlx);
+    mlx_loop(attribut.tmlx.mlx);
 	//system("leaks a.out");
-} 
+}
