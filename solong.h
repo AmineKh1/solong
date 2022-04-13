@@ -14,11 +14,11 @@ typedef struct s_mlx
 {
     void *mlx;
     void *imgWall;
-    //void *imgPlayer;
     void *imgNori;
+    void *win;
+    //int j;
     int img_w;
     int img_h;
-    void *win;
 } t_mlx;
 typedef struct s_solong
 {
@@ -26,6 +26,7 @@ typedef struct s_solong
     int p_x;
     int p_y;
     int exit;
+    void *imgPlayer;
     t_lent lent;
     char **map;
     int fd;

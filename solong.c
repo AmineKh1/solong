@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 01:04:21 by akhouya           #+#    #+#             */
-/*   Updated: 2022/04/13 02:54:38 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/04/13 03:26:40 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ void	parse_ma_drawing(t_solong *attribut)
 	i = 0;
 	j = 0;
 	//int img_w, img_h;
+	//attribut->tmlx.j = 0;
 	attribut->tmlx.imgWall = mlx_xpm_file_to_image(attribut->tmlx.mlx, "wall.xpm", &attribut->tmlx.img_w, &attribut->tmlx.img_h);
 	attribut->tmlx.imgNori = mlx_xpm_file_to_image(attribut->tmlx.mlx, "poudre.xpm", &attribut->tmlx.img_w, &attribut->tmlx.img_h);
 	//attribut->tmlx.imgPlayer = mlx_xpm_file_to_image(attribut->tmlx.mlx, "nonos.xpm", &attribut->tmlx.img_w, &attribut->tmlx.img_h);
@@ -190,10 +191,13 @@ int main(int argc, char **argv)
 	t_solong attribut;
 	int i;
 	char *s;
-
 	i = 0;
 	attribut.map = NULL;
 	attribut.p_x = -1;
+	attribut.error = 0;
+	attribut.count_coin = 0;
+	attribut.exit = 0;
+	// b_zero function needed
 	check_ext_map(argc, argv, &attribut);
 	attribut.fd = open (argv[1], O_RDWR);
 	while ((s = get_next_line(attribut.fd)) != 0)
