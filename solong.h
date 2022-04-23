@@ -10,29 +10,26 @@ typedef struct s_lent
     int x;
     int y;
 } t_lent;
-typedef struct s_mlx
+
+typedef struct s_solong
 {
+
     void *mlx;
     void *imgWall;
     void *imgNori;
+    void *imgPlayer;
+    void *imgPort;
     void *win;
-    //int j;
     int img_w;
     int img_h;
-} t_mlx;
-typedef struct s_solong
-{
-    int count_coin;
+    char **map;
+    t_lent lent;
     int p_x;
     int p_y;
     int exit;
-    void *imgPlayer;
-    t_lent lent;
-    char **map;
+    int count_coin;
     int fd;
     int error;
-    t_mlx tmlx;
-
 } t_solong;
 //gcc solong.c utils/*.c -lmlx -framework OpenGL -framework Appkit
 
