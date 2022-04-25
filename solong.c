@@ -6,239 +6,98 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 01:04:21 by akhouya           #+#    #+#             */
-/*   Updated: 2022/04/23 18:36:51 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/04/25 01:34:42 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solong.h"
-#include<string.h>
-#include "mlx.h"
 
-void	check_ext_map(int argc, char **argv, t_solong *attribut)
+void	parse_ma_drawingg(t_solong *attribut)
 {
-	char **str;
-	if (argc != 2)
-		exit(1);
-	str = ft_split(argv[1], '.');
-	if(ft_strncmp(str[1], "ber", 4) != 0)
+	int	i;
+
+	i = 0;
+	attribut->map[attribut->p_x][attribut->p_y] = 'P';
+	mlx_put_image_to_window(attribut->mlx, attribut->win, attribut->imgplayer,
+		attribut->p_y * 64, attribut->p_x * 64);
+	while (attribut->map[i])
 	{
-		frealltab(str);
-		free(str);
-		//system("leaks a.out");
-		exit(1);
-	}
-	frealltab(str);
-	free(str);
-}
-
-int check_lent(char **map)
-{
-    int i = -1;
-    int lent = ft_strlen(map[i + 1]);
-    
-    while(map[++i])
-    {
-        if(map[i + 1] == NULL)
-            lent--;
-        if(ft_strlen(map[i]) != lent)
-            return -1;
-    }
-    return (lent - 1);
-}
-
-int check_map_1(char *s, int lent)
-{
-	int j = 0;
-	while(lent-- > 0)
-    {
-        if(s[lent] != '1')
-            return 1;
-        
-    }
-	return 0;
-}
-
-void	check_byte(t_solong *attribut, char *line, int i, int lent)
-{
-	int j;
-
-	j = -1;
-	while(++j < lent)
-	{
-		if((j == 0 || j == lent) && line[j] != '1')
-		{
-			attribut->error = 1;
-			return ;
-		}
-		else if(line[j] == 'C')
-			attribut->count_coin++;
-		else if(line[j] == 'E')
-			attribut->exit = 1;
-		else if(line[j] == 'P' && attribut->p_x == -1)
-		{
-			attribut->p_y = j;
-			attribut->p_x = i;
-		}
-		else if (line[j] == '1' || line[j] == '0')
-			continue ;
-		else
-		{
-			attribut->error = 1;
-			return ;
-		}
+		check_byte_drawing(attribut, attribut->map[i], i, attribut->lent.y);
+		i++;
 	}
 }
+
 void	check_byte_drawing(t_solong *attribut, char *line, int i, int lent)
 {
-	int j;
+	int	j;
 
 	j = -1;
-	while(++j < lent)
+	while (++j < lent)
 	{
-		if(line[j] == '1')
+		if (line[j] == '1')
 		{
-			mlx_put_image_to_window(attribut->mlx, attribut->win, attribut->imgWall, j * 64, i * 64);
+			mlx_put_image_to_window(attribut->mlx, attribut->win,
+				attribut->imgwall, j * 64, i * 64);
 		}
-		if(line[j] == 'C')
-			mlx_put_image_to_window(attribut->mlx, attribut->win, attribut->imgNori, j * 64, i * 64);
-		if(line[j] == 'E')
-			mlx_put_image_to_window(attribut->mlx, attribut->win, attribut->imgPort, j * 64, i * 64);
-		if(line[j] == 'P')
+		if (line[j] == 'C')
 		{
-			mlx_put_image_to_window(attribut->mlx, attribut->win, attribut->imgPlayer, j * 64, i * 64);
-			attribut->p_x = i;
-			attribut->p_x = j;
+			mlx_put_image_to_window(attribut->mlx, attribut->win,
+				attribut->imgnori, j * 64, i * 64);
+		}
+		if (line[j] == 'E')
+		{
+			mlx_put_image_to_window(attribut->mlx, attribut->win,
+				attribut->imgport, j * 64, i * 64);
 		}
 		if (line[j] == '0')
 			continue ;
 	}
 }
-void	parse_map(t_solong *attribut)
-{
-	int i;
-	int j;
-	int lent;
-	
-	i = 0;
-	j = 0;
-	attribut->lent.y = check_lent(attribut->map);
-	if (lent == -1)
-		attribut->error = 1;
-	while(attribut->map[i])
-	{
-		if((!i || !attribut->map[i + 1]) && check_map_1(attribut->map[i], attribut->lent.y))
-			attribut->error = 1;
-		check_byte(attribut, attribut->map[i], i, attribut->lent.y);
-		i++;
-	}
-	attribut->lent.x = i;
-	attribut->lent.y++;
-	if(attribut->exit < 1 || attribut->error == 1)
-	{
-		frealltab(attribut->map);
-		free(attribut->map);
-		exit(1);
-	}
-	//i = -1;
-	//while(attribut->map[++i] != NULL)
-	//	printf("%s", attribut->map[i]);
-	////i++;
-	//printf("%s", attribut->map[i]);
-	//printf("%p", attribut->map);
-	//frealltab(attribut->map);
-	//free(attribut->map);
-	//printf("%p\n", attribut->map);
-	//system("leaks a.out");
-	//exit(6);
-}
-void	parse_ma_drawing(t_solong *attribut)
-{
-	int i;
-	int j;
-	int lent;
-	
-	i = 0;
-	j = 0;
-	//int img_w, img_h;
-	//attribut->tmlx.j = 0;
-	attribut->imgWall = mlx_xpm_file_to_image(attribut->mlx, "wall.xpm", &attribut->img_w, &attribut->img_h);
-	attribut->imgNori = mlx_xpm_file_to_image(attribut->mlx, "poudre.xpm", &attribut->img_w, &attribut->img_h);
-	attribut->imgPlayer = mlx_xpm_file_to_image(attribut->mlx, "nonos.xpm", &attribut->img_w, &attribut->img_h);
-	attribut->imgPort = mlx_xpm_file_to_image(attribut->mlx, "port.xpm", &attribut->img_w, &attribut->img_h);
-	attribut->win = mlx_new_window(attribut->mlx, 64 * attribut->lent.y, 64 * attribut->lent.x, "solong");
-	while(attribut->map[i])
-	{
-		check_byte_drawing(attribut, attribut->map[i], i, attribut->lent.y);
-		i++;
-	}
-	attribut->lent.x = i;
-	attribut->lent.y++;
-	if(attribut->exit < 1 || attribut->error == 1)
-	{
-		frealltab(attribut->map);
-		free(attribut->map);
-		exit(1);
-	}
-}
-int	mlx_move(int codekey, void *param)
-{
-	t_solong *test;
 
-	test = (t_solong *) param;
-	printf("keycode: %d\n", codekey);
-
-	if (codekey == 13 && test->map[test->p_x][test->p_y + 1] != '1'))//w
-	{
-		test->p_y++;
-		mlx_clear_window();
-		exit(12);
-	}
-	else if(codekey == 1)//s
-	{
-		
-	}
-	else if(codekey == 0)//a
-	{
-		
-	}
-	else if(codekey == 2)// d
-	{
-		
-	}
-	return 0;
-}
-int main(int argc, char **argv)
+void	init_ext(t_solong *attribut, char **argv, int argc)
 {
-	t_solong attribut;
-	int i;
-	char *s;
+	int		i;
+	char	*s;
+
+	s = NULL;
 	i = 0;
-	attribut.map = NULL;
-	attribut.p_x = -1;
-	attribut.error = 0;
-	attribut.count_coin = 0;
-	attribut.exit = 0;
-	// b_zero function needed
-	check_ext_map(argc, argv, &attribut);
-	attribut.fd = open (argv[1], O_RDWR);
-	while ((s = get_next_line(attribut.fd)) != 0)
+	attribut->map = NULL;
+	attribut->p_x = -1;
+	attribut->error = 0;
+	attribut->count_coin = 0;
+	attribut->exit = 0;
+	attribut->movement = 0;
+	attribut->fd = open (argv[1], O_RDWR);
+	check_ext_map(argc, argv, attribut);
+	s = get_next_line(attribut->fd);
+	while (s != 0)
 	{
 		i++;
 		free(s);
+		s = get_next_line(attribut->fd);
 	}
-	close(attribut.fd);
-	attribut.map = malloc((i + 1) * sizeof(char *));
+	free(s);
+	close(attribut->fd);
+}
+
+int	main(int argc, char **argv)
+{
+	t_solong	attribut;
+	int			i;
+
+	init_ext(&attribut, argv, argc);
+	attribut.map = malloc((i + 2) * sizeof(char *));
 	attribut.fd = open (argv[1], O_RDWR);
 	i = 0;
-	while ((attribut.map[i++] = get_next_line(attribut.fd)) != 0);
+	attribut.map[i] = get_next_line(attribut.fd);
+	while (attribut.map[i++] != 0)
+		attribut.map[i] = get_next_line(attribut.fd);
 	attribut.map[i] = NULL;
 	close(attribut.fd);
 	parse_map(&attribut);
-	printf("%d---%d", attribut.p_x, attribut.p_y);
 	attribut.mlx = mlx_init();
 	parse_ma_drawing(&attribut);
-
-	mlx_key_hook(attribut.win, &mlx_move,&attribut);
-    mlx_loop(attribut.mlx);
-	//system("leaks a.out");
+	mlx_hook(attribut.win, 2, 0, &mlx_move, &attribut);
+	mlx_hook(attribut.win, 17, 0, &close_dstroy, &attribut);
+	mlx_loop(attribut.mlx);
 }
