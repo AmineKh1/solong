@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 00:20:55 by akhouya           #+#    #+#             */
-/*   Updated: 2022/04/25 00:27:00 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/04/25 02:49:21 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include "mlx.h"
+# include <stdarg.h>
 
 typedef struct s_lent
 {
@@ -55,11 +56,9 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	**ft_split(char const *s, char c);
 void	frealltab(char **str);
 char	*ft_strdup(char *s);
-void	ft_putstr_fd(char *s, int fd);
-void	ft_putchar_fd(char c, int fd);
 int		mlx_move(int codekey, void *param);
 void	parse_ma_drawing(t_solong *attribut);
-int		close_dstroy(int codekey, void *param);
+int		close_dstroy(void *param);
 void	parse_map(t_solong *attribut);
 int		check_lent(char **map);
 int		check_map_1(char *s, int lent);
@@ -67,4 +66,9 @@ void	check_byte(t_solong *attribut, char *line, int i, int lent);
 void	check_ext_map(int argc, char **argv, t_solong *attribut);
 void	check_byte_drawing(t_solong *attribut, char *line, int i, int lent);
 void	parse_ma_drawingg(t_solong *attribut);
+void	ft_putchar_fd(char c, int fd, int *count);
+void	ft_putstr_fd(char *s, int fd, int *count);
+void	ft_putnbr_base(unsigned long int nbr, char *base, int *count);
+void	ft_putnbr_fd(int n, int fd, int *count);
+int		ft_printf(const char *formatstring, ...);
 #endif

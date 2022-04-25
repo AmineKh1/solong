@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 00:29:22 by akhouya           #+#    #+#             */
-/*   Updated: 2022/04/25 01:37:11 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/04/25 02:55:21 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	check_lent(char **map)
 {
-	int	i;
-	int	lent;
+	int		i;
+	size_t	lent;
 
 	i = -1;
 	lent = ft_strlen(map[i + 1]);
@@ -33,12 +33,11 @@ void	parse_map(t_solong *attribut)
 {
 	int	i;
 	int	j;
-	int	lent;
 
 	i = -1;
 	j = 0;
 	attribut->lent.y = check_lent(attribut->map);
-	if (lent == -1)
+	if (attribut->lent.y == -1)
 		attribut->error = 1;
 	while (attribut->map[++i])
 	{
@@ -53,7 +52,7 @@ void	parse_map(t_solong *attribut)
 	{
 		frealltab(attribut->map);
 		free(attribut->map);
-		printf("error\ninvalid map\n");
+		ft_printf("Error\nInvalid map\n");
 		exit(1);
 	}
 }
@@ -108,7 +107,7 @@ void	check_ext_map(int argc, char **argv, t_solong *attribut)
 	{
 		frealltab(str);
 		free(str);
-		printf("Error\nInvalid extention of map\n");
+		ft_printf("Error\nInvalid extention of map\n");
 		if (attribut->fd > 0)
 			close(attribut->fd);
 		exit(1);
@@ -117,7 +116,7 @@ void	check_ext_map(int argc, char **argv, t_solong *attribut)
 	free(str);
 	if (attribut->fd < 0)
 	{
-		printf("Error\nFile map not found\n");
+		ft_printf("Error\nFile map not found\n");
 		exit(1);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 02:08:34 by akhouya           #+#    #+#             */
-/*   Updated: 2022/04/25 02:11:12 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/04/25 02:50:14 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	parse_ma_drawing(t_solong *attribut)
 	}
 }
 
-int	close_dstroy(int codekey, void *param)
+int	close_dstroy(void *param)
 {
 	t_solong	*test;
 

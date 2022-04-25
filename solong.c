@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 01:04:21 by akhouya           #+#    #+#             */
-/*   Updated: 2022/04/25 01:34:42 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/04/25 02:48:56 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	check_byte_drawing(t_solong *attribut, char *line, int i, int lent)
 	}
 }
 
-void	init_ext(t_solong *attribut, char **argv, int argc)
+int	init_ext(t_solong *attribut, char **argv, int argc)
 {
 	int		i;
 	char	*s;
@@ -78,6 +78,7 @@ void	init_ext(t_solong *attribut, char **argv, int argc)
 	}
 	free(s);
 	close(attribut->fd);
+	return (i);
 }
 
 int	main(int argc, char **argv)
@@ -85,7 +86,7 @@ int	main(int argc, char **argv)
 	t_solong	attribut;
 	int			i;
 
-	init_ext(&attribut, argv, argc);
+	i = init_ext(&attribut, argv, argc);
 	attribut.map = malloc((i + 2) * sizeof(char *));
 	attribut.fd = open (argv[1], O_RDWR);
 	i = 0;
