@@ -1,7 +1,7 @@
 NAME = solong
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-SRC =  solong.c drawing.c move_player.c parse_map.c utils/ft_putstr_fd.c utils/ft_split.c utils/ft_strdup.c utils/ft_strjoin.c utils/ft_strlen.c utils/ft_strncmp.c utils/ft_substr.c utils/get_next_line.c utils/ft_printf.c utils/ft_putnbr_base_fd.c utils/ft_putnbr_fd.c
+SRC =  solong.c drawing.c move_player.c parse_map.c utils/ft_putstr_fd.c utils/ft_split.c utils/ft_strdup.c utils/ft_strjoin.c utils/ft_strlen.c utils/ft_strncmp.c utils/ft_substr.c utils/get_next_line.c utils/ft_printf.c utils/ft_putnbr_base_fd.c utils/ft_putnbr_fd.c utils/ft_putchar_fd.c
 OBJ = ${SRC:.c=.o}
 RM = rm -rf
 MLX = -lmlx -framework OpenGL -framework Appkit
