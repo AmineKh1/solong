@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 00:29:22 by akhouya           #+#    #+#             */
-/*   Updated: 2022/05/08 16:07:28 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/05/08 22:06:28 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	check_byte(t_solong *attribut, char *line, int i, int lent)
 	int	j;
 
 	j = -1;
-	while (++j < lent && attribut->error != 1)
+	while (++j <= lent && attribut->error != 1)
 	{
 		if ((j == 0 || j == lent) && line[j] != '1')
 			attribut->error = 1;
