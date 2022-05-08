@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 00:29:22 by akhouya           #+#    #+#             */
-/*   Updated: 2022/04/25 02:55:21 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/05/08 15:12:45 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,14 @@ void	check_ext_map(int argc, char **argv, t_solong *attribut)
 	if (argc != 2)
 		exit(1);
 	str = ft_split(argv[1], '.');
-	if (ft_strncmp(str[1], "ber", 4) != 0)
+	if (attribut->fd < 0)
+	{
+		frealltab(str);
+		free(str);
+		ft_printf("Error\nFile map not found\n");
+		exit(1);
+	}
+	if (str[1] == NULL || ft_strncmp(str[1], "ber", 4) != 0)
 	{
 		frealltab(str);
 		free(str);
@@ -114,9 +121,4 @@ void	check_ext_map(int argc, char **argv, t_solong *attribut)
 	}
 	frealltab(str);
 	free(str);
-	if (attribut->fd < 0)
-	{
-		ft_printf("Error\nFile map not found\n");
-		exit(1);
-	}
 }
