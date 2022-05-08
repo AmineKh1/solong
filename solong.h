@@ -6,13 +6,13 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 00:20:55 by akhouya           #+#    #+#             */
-/*   Updated: 2022/04/25 02:49:21 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/05/08 16:07:23 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SOLONG_H
 # define SOLONG_H
-# include <stdio.h>
+//# include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
@@ -71,4 +71,5 @@ void	ft_putstr_fd(char *s, int fd, int *count);
 void	ft_putnbr_base(unsigned long int nbr, char *base, int *count);
 void	ft_putnbr_fd(int n, int fd, int *count);
 int		ft_printf(const char *formatstring, ...);
+void	condition_ext(t_solong *attribut, char **str);
 #endif

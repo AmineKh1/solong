@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 01:04:21 by akhouya           #+#    #+#             */
-/*   Updated: 2022/04/25 02:48:56 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/05/08 16:07:14 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,26 @@ int	init_ext(t_solong *attribut, char **argv, int argc)
 	free(s);
 	close(attribut->fd);
 	return (i);
+}
+
+void	condition_ext(t_solong *attribut, char **str)
+{
+	if (attribut->fd < 0)
+	{
+		frealltab(str);
+		free(str);
+		ft_printf("Error\nFile map not found\n");
+		exit(1);
+	}
+	if (str[1] == NULL || ft_strncmp(str[1], "ber", 4) != 0)
+	{
+		frealltab(str);
+		free(str);
+		ft_printf("Error\nInvalid extention of map\n");
+		if (attribut->fd > 0)
+			close(attribut->fd);
+		exit(1);
+	}
 }
 
 int	main(int argc, char **argv)

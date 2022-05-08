@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 22:57:39 by akhouya           #+#    #+#             */
-/*   Updated: 2022/04/24 21:32:24 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/05/08 15:57:17 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	str = malloc((nbrarray(s, c) + 1) * sizeof(char *));
 	if (!str)
-		return (NULL);
+		exit(1);
 	i = checkimpli(s, str, c);
 	if (i == 1)
 	{

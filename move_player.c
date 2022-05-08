@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 01:41:57 by akhouya           #+#    #+#             */
-/*   Updated: 2022/04/25 02:30:22 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/05/08 16:09:32 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	mlx_move(int codekey, void *param)
 		code_key_a(attri);
 	else if (codekey == 2 && attri->map[attri->p_x][attri->p_y + 1] != '1')
 		code_key_d(attri);
-	else if (codekey == 49)
+	else if (codekey == 53)
 	{
 		frealltab(attri->map);
 		free(attri->map);
