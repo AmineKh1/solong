@@ -6,11 +6,17 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 02:08:34 by akhouya           #+#    #+#             */
-/*   Updated: 2022/05/08 16:13:28 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/05/09 19:06:51 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solong.h"
+
+void static protect(t_solong *attribut)
+{
+	if (attribut->imgnori == NULL || attribut->imgplayer == NULL || attribut->imgport == NULL || attribut->imgwall == NULL || attribut->win == NULL)
+		exit(1);
+}
 
 void	parse_ma_drawing(t_solong *attribut)
 {
@@ -29,6 +35,7 @@ void	parse_ma_drawing(t_solong *attribut)
 			64 * attribut->lent.y, 64 * attribut->lent.x, "solong");
 	mlx_put_image_to_window(attribut->mlx, attribut->win,
 		attribut->imgplayer, attribut->p_y * 64, attribut->p_x * 64);
+	protect(attribut);
 	while (attribut->map[i])
 	{
 		check_byte_drawing(attribut, attribut->map[i], i, attribut->lent.y);
