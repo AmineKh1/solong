@@ -13,10 +13,10 @@ ${NAME}: ${OBJ}
 %.o : %.c
 	${CC} ${CFLAGS} -c $< -o $@
 clean:
-	@${RM} ${OBJ} ${OBJB}
+	@${RM} ${OBJ}
 
 fclean: clean
-	@${RM} ${NAME} ${NAMEB}
+	@${RM} ${NAME}
 
 re: fclean all
 .PHONY: clean all bonus fclean re
