@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 01:04:21 by akhouya           #+#    #+#             */
-/*   Updated: 2022/05/08 16:07:14 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/05/12 21:12:48 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@ int	init_ext(t_solong *attribut, char **argv, int argc)
 	attribut->fd = open (argv[1], O_RDWR);
 	check_ext_map(argc, argv, attribut);
 	s = get_next_line(attribut->fd);
+	if (s == NULL)
+	{
+		ft_printf("Error\nInvalid map\n");
+		exit(1);
+	}
 	while (s != 0)
 	{
 		i++;

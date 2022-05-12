@@ -6,15 +6,17 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 02:08:34 by akhouya           #+#    #+#             */
-/*   Updated: 2022/05/09 19:06:51 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/05/12 12:57:47 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solong.h"
 
-void static protect(t_solong *attribut)
+void static	protect(t_solong *attribut)
 {
-	if (attribut->imgnori == NULL || attribut->imgplayer == NULL || attribut->imgport == NULL || attribut->imgwall == NULL || attribut->win == NULL)
+	if (attribut->imgnori == NULL || attribut->imgplayer == NULL
+		||attribut->imgport == NULL || attribut->imgwall == NULL
+		|| attribut->win == NULL)
 		exit(1);
 }
 
