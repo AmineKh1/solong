@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 00:29:22 by akhouya           #+#    #+#             */
-/*   Updated: 2022/05/08 22:06:28 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/05/14 16:58:20 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,16 +97,14 @@ void	check_byte(t_solong *attribut, char *line, int i, int lent)
 
 void	check_ext_map(int argc, char **argv, t_solong *attribut)
 {
-	char	**str;
+	char	*s;
 
-	str = NULL;
+	s = NULL;
 	if (argc != 2)
 	{
 		ft_printf("Error\n");
 		exit(1);
 	}
-	str = ft_split(argv[1], '.');
-	condition_ext(attribut, str);
-	frealltab(str);
-	free(str);
+	s = ft_strrchr(argv[1], '.');
+	condition_ext(attribut, s);
 }

@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 00:20:55 by akhouya           #+#    #+#             */
-/*   Updated: 2022/05/08 16:07:23 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/05/16 18:33:53 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_solong
 	int		movement;
 }	t_solong;
 char	*get_next_line(int fd);
+void	init_func(t_solong *attribut);
 char	*ft_strdup(char *s);
 size_t	ft_strlen(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
@@ -71,5 +72,6 @@ void	ft_putstr_fd(char *s, int fd, int *count);
 void	ft_putnbr_base(unsigned long int nbr, char *base, int *count);
 void	ft_putnbr_fd(int n, int fd, int *count);
 int		ft_printf(const char *formatstring, ...);
-void	condition_ext(t_solong *attribut, char **str);
+void	condition_ext(t_solong *attribut, char *str);
+char	*ft_strrchr(char *s, int c);
 #endif

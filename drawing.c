@@ -6,7 +6,7 @@
 /*   By: akhouya <akhouya@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 02:08:34 by akhouya           #+#    #+#             */
-/*   Updated: 2022/05/12 12:57:47 by akhouya          ###   ########.fr       */
+/*   Updated: 2022/05/14 13:05:44 by akhouya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ void static	protect(t_solong *attribut)
 	if (attribut->imgnori == NULL || attribut->imgplayer == NULL
 		||attribut->imgport == NULL || attribut->imgwall == NULL
 		|| attribut->win == NULL)
+	{
+		ft_printf("Error xpm file or window failed\n");
 		exit(1);
+	}
 }
 
 void	parse_ma_drawing(t_solong *attribut)
